@@ -9,69 +9,58 @@ import UIKit
 import AlamofireImage
 import WebKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UIScrollViewDelegate {
 
-    @IBOutlet weak var coinsTable: UITableView!
     @IBOutlet weak var TopRankCollection: UICollectionView!
     @IBOutlet weak var amountTopRankLabel: UILabel!
-    @IBOutlet weak var coins2table: UICollectionView!
-//    @IBOutlet weak var coinsCollectionWidthCon: NSLayoutConstraint!
+    @IBOutlet weak var coinsCollection: UICollectionView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var coinsCollectionHeightCon: NSLayoutConstraint!
+    
+    @IBOutlet weak var content: UIView!
+    //-----
+    @IBOutlet weak var coinDetailViewHighCon: NSLayoutConstraint!
+    @IBOutlet var coinDetailView: UIView!
+    @IBOutlet weak var overlayView: UIView!
+    @IBOutlet weak var cryptoDetailIconImage: UIImageView!
+    @IBOutlet weak var cryptoDetailNameLabel: UILabel!
+    @IBOutlet weak var cryptoDetailSymbolLabel: UILabel!
+    @IBOutlet weak var cryptoDetailPriceLabel: UILabel!
+    @IBOutlet weak var cryptoDetailMarketCapLabel: UILabel!
+    @IBOutlet weak var cryptoDetailLabel: UILabel!
+    @IBOutlet weak var cryptoDetailWebsiteLabel: UIButton!
     
     var coins = [Coins]()
     let amountTopRank = 3
+    var loaded = 20
+    var countShowCoins = 5
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
 
-        self.getCoins()
+        self.getCoins(collectionView: self.TopRankCollection, parameters: ["limit" : self.amountTopRank])
+        self.getCoins(collectionView: self.coinsCollection, parameters: ["limit" : self.loaded])
+
         self.amountTopRankLabel.text = "\(self.amountTopRank)"
-        print("som: 1")
         
-//        self.coins2table.register(UINib(nibName: "CCell", bundle: .main), forCellWithReuseIdentifier: "CoinsCell")
-         self.coins2table.register(UINib(nibName: "CoinsCell", bundle: nil), forCellWithReuseIdentifier: "CCell")
-
+        self.coinsCollection.register(UINib(nibName: "CoinsCell", bundle: nil), forCellWithReuseIdentifier: "CCell")
+        self.coinsCollection.register(UINib(nibName: "InviteCell", bundle: nil), forCellWithReuseIdentifier: "GiftCell")
+        
+        self.coinsCollection.isScrollEnabled = false
+        hideDetail()
         
     }
     
-    // MARK: Table
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("som: 2")
-        print("som: count table:", self.coins.count)
-        return self.coins.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let coin = self.coins[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! CoinCell
-        //
-        //let urlRequest = URLRequest(url: URL(string: "https://cdn.coinranking.com/bOabBYkcX/bitcoin_btc.svg")!)
-        //cell.iconWebView.load(urlRequest)        
-        //
-        
-        cell.fullNameCryptoLabel.text = "[\(coin.rank)]" + coin.name
-        cell.nameCryptoLabel.text = coin.symbol
-        cell.priceCryptoLabel.text = String(format: "%.5f", coin.price)
-                
-        var allow = ""
-        if coin.change >= 0 { //geen
-            allow = "↑"
-            cell.priceUpDownCryptoLabel.textColor = .systemGreen
-        } else { //red
-            allow = "↓"
-            cell.priceUpDownCryptoLabel.textColor = .systemRed
-        }
-        cell.priceUpDownCryptoLabel.text = allow + String(format: "%.2f", coin.change)
-        
-        
-        return cell
+    // MARK: ScrollView
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.coinsCollection.isScrollEnabled = false
     }
     
     // MARK: Collection
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.TopRankCollection {
-            return self.amountTopRank
-        } else if collectionView == self.coins2table {
+            return self.coins.count > 0 ? self.amountTopRank : 0
+        } else if collectionView == self.coinsCollection {
             return self.coins.count
         } else {
             return 0
@@ -79,59 +68,122 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        if collectionView == self.coins2table {
-            let cell : CoinsCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CCell", for: indexPath) as! CoinsCell
-
-//            let nib = UINib(nibName: "CoinsCell", bundle: nil)
-//            collectionView.register(nib, forCellWithReuseIdentifier: "CoinsCell") // I don't know who is the collectionView
+        if collectionView == self.coinsCollection {
+            let cell : CoinsCell
+            if indexPath.row == self.countShowCoins {
+                cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GiftCell", for: indexPath) as! CoinsCell
+                cell.cryptoCellWidthCon.constant = collectionView.bounds.width - 20 //width of cell
+                self.countShowCoins = self.countShowCoins*2
+                return cell
+            } else {
+                cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CCell", for: indexPath) as! CoinsCell
+            }
             
-//            var cell : CoinsCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CCell", for: indexPath) as! CoinsCell
-
-
-//            let cell: CoinsCell //collectionView.dequeueReusableCell(withReuseIdentifier: "CCell", for: indexPath) as! CoinsCell
-//            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CCell", for: indexPath) as! CoinsCell
-//            let coin = self.coins[indexPath.row]
-//            cell.fullNameCryptoLabel.text = coin.name
-//            cell.nameCryptoLabel.text = coin.symbol
+            let coin = self.coins[indexPath.row]
             
-//            let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-//            layout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 10, right: 0)
-//            layout.itemSize = CGSize(width: collectionView.frame.width/3, height: collectionView.frame.width/3)
-//            collectionView.collectionViewLayout = layout
-            return cell
-            
-        } else {
-//            let coin = self.coins[indexPath.row]
-            print(self.coins.count)
-            var cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! TopCoinCell
-            //-cryptoImageView
+            //-icon
+            //cell.cryptoIconImage
             //let urlRequest = URLRequest(url: URL(string: "https://cdn.coinranking.com/bOabBYkcX/bitcoin_btc.svg")!)
             //cell.iconWebView.load(urlRequest)
-//            cell.fullNameCryptoLabel.text = coin.name
-//            cell.nameCryptoLabel.text = coin.symbol
-//            //cell.priceUpDownCryptoImageView
-//            cell.priceUpDownCryptoLabel.text = "\(coin.change)"
+            cell.cryptoNameLabel.text = coin.name
+            cell.cryptoSymbolLabel.text = coin.symbol
+            cell.cryptoPriceLabel.text = String(format: "%.5f", coin.price)
+            var allow = ""
+            if coin.change >= 0 {
+                allow = "↑"
+                cell.cryptoChangeLabel.textColor = .systemGreen
+            } else {
+                allow = "↓"
+                cell.cryptoChangeLabel.textColor = .systemRed
+            }
+            cell.cryptoChangeLabel.text = allow + String(format: "%.2f", coin.change)
+            
+            cell.cryptoCellWidthCon.constant = collectionView.bounds.width - 20
+            
             return cell
-
+            
+        } else { // Top 3 Rank
+            let coin = self.coins[indexPath.row]
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! TopCoinCell
+            //-icon
+            //cell.cryptoIconImage
+            cell.cryptoNameLabel.text = coin.name
+            cell.cryptoSymbolLabel.text = coin.symbol
+            var allow = ""
+            if coin.change >= 0 {
+                allow = "↑"
+                cell.cryptoChangeLabel.textColor = .systemGreen
+            } else {
+                allow = "↓"
+                cell.cryptoChangeLabel.textColor = .systemRed
+            }
+            cell.cryptoChangeLabel.text = allow + String(format: "%.2f", coin.change)
+            
+            return cell
         }
-        
-        
     }
     
-    func getCoins() { //limit offset
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.getCoinDetail(uuid: self.coins[indexPath.row].uuid)
+    }
+    
+    func getCoins(collectionView: UICollectionView, parameters: [String : Any]?) { //limit offset
         ServerConnector.call("coins", parameters: nil, completionHandler: { (data) in
-            self.coins = Coins.coinsFromJSONArray(data)
-            print("som: count table2:", self.coins.count)
-            self.coinsTable.reloadData()
-            self.TopRankCollection.reloadData()
-            self.coins2table.reloadData()
-            //completionHandler?(moreMessages)
+            self.coins = Coins.coinsFromJSONArray(data["coins"])
+
+            let cellHeight = 80
+            let pandding = 5
+            let allCellHeight: Double = Double(cellHeight+pandding)
+            self.coinsCollectionHeightCon.constant = CGFloat( Double(self.coins.count)*allCellHeight )
+                
+            if collectionView == self.coinsCollection {
+                //self.countShowCoins = self.countShowCoins * 2
+            }
+            self.loaded = self.loaded + 20
+            collectionView.reloadData()
         }, errorHandler: { (errorCode, errorDesc) in
-            //errorHandler?()
         })
     }
+    
+    var link: String?
+    func getCoinDetail(uuid: String) {
+        
+        ServerConnector.call("coin/\(uuid)", parameters: nil, completionHandler: { (data) in
+            let coin = Coins(data: data["coin"])
+            self.link = coin.websiteUrl
+            
+            //self.cryptoDetailIconImage
+            self.cryptoDetailNameLabel.textColor = UIColor(hex: "#f7931A")
+            self.cryptoDetailNameLabel.text = coin.name
+            self.cryptoDetailSymbolLabel.text = coin.symbol
+            self.cryptoDetailPriceLabel.text = String(format: "%.2f", coin.price)
+            self.cryptoDetailMarketCapLabel.text = "\(coin.marketCap)"
+            self.cryptoDetailLabel.text = coin.description
+                        
+            // TODO: show coin Detail
+//            self.coinDetailViewHighCon.constant =  CGFloat(self.coinDetailView.bounds.height)
+//            self.showDetail()
+            
+        }, errorHandler: { (errorCode, errorDesc) in
+        })        
+    }
 
+//    func showDetail() {
+////        self.coinDetailViewHighCon.constant =  CGFloat(self.coinDetailView.bounds.height)
+//        self.content.addSubview(self.coinDetailView)
+//    }
+    
+    func hideDetail() {
+        self.coinDetailViewHighCon.constant = 0
+        self.content.removeFromSuperview()
+    }
+    
+    
+    @IBAction func touchGoToWebsiteButton(_ sender: Any) {
+        if let linkUrl = self.link, let url = URL(string: linkUrl) {
+            UIApplication.shared.openURL(url)
+        }
+    }
     
 
 }

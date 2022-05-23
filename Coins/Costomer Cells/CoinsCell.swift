@@ -9,22 +9,18 @@ import Foundation
 import UIKit
 
 class CoinsCell: UICollectionViewCell {
-    /*
-     @IBOutlet weak var cryptoImageView: UIImageView!
-     @IBOutlet weak var fullNameCryptoLabel: UILabel!
-     @IBOutlet weak var nameCryptoLabel: UILabel!
-     @IBOutlet weak var priceUpDownCryptoLabel: UILabel!
-     */
-//    @IBOutlet weak var cryptoImageView: UIImageView!
-//    @IBOutlet weak var fullNameCryptoLabel: UILabel!
-//    @IBOutlet weak var nameCryptoLabel: UILabel!
-//    @IBOutlet weak var priceUpDownCryptoLabel: UILabel!
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        //self.cellImage.clipsToBounds = true //here..
-//    }
+    @IBOutlet weak var cryptoIconImage: UIImageView!
+    @IBOutlet weak var cryptoNameLabel: UILabel!
+    @IBOutlet weak var cryptoSymbolLabel: UILabel!
+    @IBOutlet weak var cryptoPriceLabel: UILabel!
+    @IBOutlet weak var cryptoChangeLabel: UILabel!
+    
+    @IBOutlet weak var cryptoCellWidthCon: NSLayoutConstraint!
+    
+    @IBOutlet weak var giftBoxImage: UIImageView!
+    @IBOutlet weak var inviteLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-//        clear()
     }
 }

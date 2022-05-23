@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5879671E283A977C0059EEA4 /* InviteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5879671D283A977C0059EEA4 /* InviteCell.xib */; };
+		58796724283AC72E0059EEA4 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58796723283AC72E0059EEA4 /* UIColor+Extension.swift */; };
 		58B9CBB628323C83009930AC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B9CBB528323C83009930AC /* AppDelegate.swift */; };
 		58B9CBB828323C83009930AC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B9CBB728323C83009930AC /* SceneDelegate.swift */; };
 		58B9CBBA28323C83009930AC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B9CBB928323C83009930AC /* ViewController.swift */; };
 		58B9CBBD28323C83009930AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58B9CBBB28323C83009930AC /* Main.storyboard */; };
 		58B9CBBF28323C83009930AC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58B9CBBE28323C83009930AC /* Assets.xcassets */; };
 		58B9CBC228323C83009930AC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58B9CBC028323C83009930AC /* LaunchScreen.storyboard */; };
-		58B9CBCB28323D87009930AC /* CoinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B9CBCA28323D87009930AC /* CoinCell.swift */; };
 		58B9CBD228327C53009930AC /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B9CBD128327C53009930AC /* RoundView.swift */; };
 		58C5077528368E5F003DAC3A /* ServerConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C5077428368E5F003DAC3A /* ServerConnector.swift */; };
 		58C5077728369358003DAC3A /* Coins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C5077628369358003DAC3A /* Coins.swift */; };
@@ -25,6 +26,8 @@
 
 /* Begin PBXFileReference section */
 		143CB498D387F6454DE16EB6 /* Pods-Coins.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Coins.release.xcconfig"; path = "Target Support Files/Pods-Coins/Pods-Coins.release.xcconfig"; sourceTree = "<group>"; };
+		5879671D283A977C0059EEA4 /* InviteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InviteCell.xib; sourceTree = "<group>"; };
+		58796723283AC72E0059EEA4 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		58B9CBB228323C83009930AC /* Coins.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Coins.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58B9CBB528323C83009930AC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		58B9CBB728323C83009930AC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -33,7 +36,6 @@
 		58B9CBBE28323C83009930AC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		58B9CBC128323C83009930AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		58B9CBC328323C83009930AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		58B9CBCA28323D87009930AC /* CoinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinCell.swift; sourceTree = "<group>"; };
 		58B9CBD128327C53009930AC /* RoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
 		58C5077428368E5F003DAC3A /* ServerConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConnector.swift; sourceTree = "<group>"; };
 		58C5077628369358003DAC3A /* Coins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coins.swift; sourceTree = "<group>"; };
@@ -102,10 +104,10 @@
 		58B9CBC928323D65009930AC /* Costomer Cells */ = {
 			isa = PBXGroup;
 			children = (
-				58B9CBCA28323D87009930AC /* CoinCell.swift */,
 				58FD40C02838DEC6005A5D30 /* TopCoinCell.swift */,
 				58FD40C228394D58005A5D30 /* CoinsCell.swift */,
 				58F2547C283957C000824EF7 /* CoinsCell.xib */,
+				5879671D283A977C0059EEA4 /* InviteCell.xib */,
 			);
 			path = "Costomer Cells";
 			sourceTree = "<group>";
@@ -115,6 +117,7 @@
 			children = (
 				58B9CBD128327C53009930AC /* RoundView.swift */,
 				58C5077428368E5F003DAC3A /* ServerConnector.swift */,
+				58796723283AC72E0059EEA4 /* UIColor+Extension.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 			files = (
 				58B9CBC228323C83009930AC /* LaunchScreen.storyboard in Resources */,
 				58B9CBBF28323C83009930AC /* Assets.xcassets in Resources */,
+				5879671E283A977C0059EEA4 /* InviteCell.xib in Resources */,
 				58F2547D283957C000824EF7 /* CoinsCell.xib in Resources */,
 				58B9CBBD28323C83009930AC /* Main.storyboard in Resources */,
 			);
@@ -250,9 +254,9 @@
 				58B9CBD228327C53009930AC /* RoundView.swift in Sources */,
 				58B9CBB628323C83009930AC /* AppDelegate.swift in Sources */,
 				58C5077728369358003DAC3A /* Coins.swift in Sources */,
-				58B9CBCB28323D87009930AC /* CoinCell.swift in Sources */,
 				58C5077528368E5F003DAC3A /* ServerConnector.swift in Sources */,
 				58B9CBB828323C83009930AC /* SceneDelegate.swift in Sources */,
+				58796724283AC72E0059EEA4 /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

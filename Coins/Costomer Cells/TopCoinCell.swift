@@ -10,7 +10,11 @@ import UIKit
 
 class TopCoinCell: UICollectionViewCell {
     @IBOutlet weak var cryptoImageView: UIImageView!
-    @IBOutlet weak var fullNameCryptoLabel: UILabel!
-    @IBOutlet weak var nameCryptoLabel: UILabel!
-    @IBOutlet weak var priceUpDownCryptoLabel: UILabel!
+    @IBOutlet weak var cryptoNameLabel: UILabel!
+    @IBOutlet weak var cryptoSymbolLabel: UILabel!
+    @IBOutlet weak var cryptoChangeLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
 }
